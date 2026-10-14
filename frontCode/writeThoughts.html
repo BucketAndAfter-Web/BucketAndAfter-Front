@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>소감 작성</title>
+    <link rel="stylesheet" href="nav.css">
+</head>
+<body>
+    <iframe src="nav.html" class="headerTemplate"></iframe>
+    <h2 id="bucketTitle"></h2>
+    <p id="bucketInfo"></p>
+    <textarea id="thoughts" rows="10" cols="50" placeholder="여기에 생각을 적어보세요..."></textarea>
+    <br>
+    <button id="saveButton">저장</button>
+
+    <script>
+        const bucketIndex = Number(new URLSearchParams(window.location.search).get("index"));//URL에서 index값 가져와서 저장
+        const bucketLists = JSON.parse(localStorage.getItem("bucketLists") || "[]");//로컬 스토리지에서 모든 버킷 리스트를 가져옴
+        const bucketList = bucketLists[bucketIndex];//버킷리스트 리스트에서 index에 해당하는 버킷의 데이터를 가져옴
+
+        if (!bucketList) {//인덱스에 해당하는 버킷의 데이터가 없을 때
+            alert("버킷리스트를 찾을 수 없습니다.");
+            window.location.href = "main.html";
+        } 
+        else {//있을 때
+            document.getElementById("bucketTitle").textContent = bucketList.title;
+            document.getElementById("bucketInfo").textContent = bucketList.info;
+            document.getElementById("thoughts").value = bucketList.thoughts || "";
+
+            document.getElementById("saveButton").addEventListener("click", function () {
+                bucketList.thoughts = document.getElementById("thoughts").value.trim();
+                bucketList.completed = true;
+                
+                bucketLists[bucketIndex] = bucketList;
+                localStorage.setItem("bucketLists", JSON.stringify(bucketLists));
+                window.location.href = "main.html";
+            });
+        }
+    </script>
+</body>
+</html>

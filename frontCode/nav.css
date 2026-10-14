@@ -1,0 +1,12 @@
+.headerTemplate {
+  width: 100%;          /* 가로 화면 꽉 채우기 */
+  height: 90px;
+  border: none;
+  overflow: hidden;     /* 스크롤바 생기는 거 방지 */
+  font-family: Arial, sans-serif;
+}
+body {
+  /*모든 내용에 공통적으로 적용*/
+  font-family: Arial, sans-serif; /*폰트 정하기*/
+  margin: 0; /*마진 X*/
+}
