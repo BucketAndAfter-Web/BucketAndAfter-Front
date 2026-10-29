@@ -1,0 +1,22 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+nav {
+  margin: 0;
+  padding: 0px 120px 0px 120px;
+  background-color: #dce8d8;
+  height: 64px;
+  border-bottom: solid 1px;
+  border-color: #355e3b;
+  
+}
+
+nav h1 {
+  margin: 0;
+  font-weight: bold;
+}
