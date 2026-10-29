@@ -7,13 +7,18 @@ body {
 }
 
 nav {
+  display: flex;
+
+  align-items: center;
+
   margin: 0;
   padding: 0px 120px 0px 120px;
+
   background-color: #dce8d8;
+  border-color: #355e3b;
+
   height: 64px;
   border-bottom: solid 1px;
-  border-color: #355e3b;
-  
 }
 
 nav h1 {
