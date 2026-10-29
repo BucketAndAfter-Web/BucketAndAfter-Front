@@ -5,14 +5,48 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>버킷리스트 추가</title>
     <link rel="stylesheet" href="nav.css">
+    <style>
+        .textField {
+            width: 50%;
+            padding: 10px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+        #bucketForm {
+            border: 2px solid #355e3b;
+            text-align: left;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 0px 100px;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            
+        }
+        input[type="text"] {
+            margin: 10px;
+            padding: 10px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+            border: 1px solid #355e3b;
+            border-radius: 5px;
+
+        }
+    </style>
 </head>
 <body>
-    <!-- iframe 태그에서는 target="_top"을 지워도 돼! -->
     <iframe src="nav.html" class="headerTemplate"></iframe>
+
+    <h1>새 버킷리스트</h1>
     
     <form id="bucketForm">
+        <h2>제목</h2>
         <input type="text" id="listTitle" placeholder="버킷리스트 제목" required>
+        <br>
+        <h2>세부 사항</h2>
         <input type="text" id="listInfo" placeholder="버킷리스트 세부 사항" required>
+        <br>
+        <button type="button" onclick="window.location.href='main.html'">취소</button>
         <button type="submit">추가</button>
     </form>
 
@@ -25,6 +59,7 @@
                 title: document.getElementById("listTitle").value.trim(),//제목 입력창의 텍스트 가져와서 title에 저장
                 info: document.getElementById("listInfo").value.trim()//위에랑 같은 기능인데 이제 세부사항으로
             });//title, info 읽어온 값들을 버킷리스트에 -마지막 요소로 push
+            bucketLists.className = "bucketLists";//버킷리스트에 클래스 이름 설정
             localStorage.setItem("bucketLists", JSON.stringify(bucketLists));//push 된 버킷 리스트 데이터를 로컬 스토리지에 저장
             window.location.href = "main.html";//메인으로 화면 이동
         });
