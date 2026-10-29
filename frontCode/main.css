@@ -6,6 +6,10 @@ body {
   margin: 0;
 }
 
+main {
+  margin-top: 64px;
+}
+
 nav {
   position: fixed;
 
