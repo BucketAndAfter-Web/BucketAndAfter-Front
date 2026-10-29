@@ -1,33 +1,47 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>버킷리스트 추가</title>
-    <link rel="stylesheet" href="nav.css">
-</head>
-<body>
+    <link rel="stylesheet" href="nav.css" />
+  </head>
+  <body>
     <!-- iframe 태그에서는 target="_top"을 지워도 돼! -->
     <iframe src="nav.html" class="headerTemplate"></iframe>
-    
+
     <form id="bucketForm">
-        <input type="text" id="listTitle" placeholder="버킷리스트 제목" required>
-        <input type="text" id="listInfo" placeholder="버킷리스트 세부 사항" required>
-        <button type="submit">추가</button>
+      <input
+        type="text"
+        id="listTitle"
+        placeholder="버킷리스트 제목"
+        required
+      />
+      <input
+        type="text"
+        id="listInfo"
+        placeholder="버킷리스트 세부 사항"
+        required
+      />
+      <button type="submit">추가</button>
     </form>
 
     <script>
-        document.getElementById("bucketForm").addEventListener("submit", function (event) {
-            event.preventDefault();//폼 제출 이후 바로 화면전환 안되게 설정. 
+      document
+        .getElementById("bucketForm")
+        .addEventListener("submit", function (event) {
+          event.preventDefault(); //폼 제출 이후 바로 화면전환 안되게 설정.
 
-            const bucketLists = JSON.parse(localStorage.getItem("bucketLists") || "[]");//원래 스토리지 데이터 가져오기
-            bucketLists.push({
-                title: document.getElementById("listTitle").value.trim(),//제목 입력창의 텍스트 가져와서 title에 저장
-                info: document.getElementById("listInfo").value.trim()//위에랑 같은 기능인데 이제 세부사항으로
-            });//title, info 읽어온 값들을 버킷리스트에 -마지막 요소로 push
-            localStorage.setItem("bucketLists", JSON.stringify(bucketLists));//push 된 버킷 리스트 데이터를 로컬 스토리지에 저장
-            window.location.href = "main.html";//메인으로 화면 이동
+          const bucketLists = JSON.parse(
+            localStorage.getItem("bucketLists") || "[]",
+          ); //원래 스토리지 데이터 가져오기
+          bucketLists.push({
+            title: document.getElementById("listTitle").value.trim(), //제목 입력창의 텍스트 가져와서 title에 저장
+            info: document.getElementById("listInfo").value.trim(), //위에랑 같은 기능인데 이제 세부사항으로
+          }); //title, info 읽어온 값들을 버킷리스트에 -마지막 요소로 push
+          localStorage.setItem("bucketLists", JSON.stringify(bucketLists)); //push 된 버킷 리스트 데이터를 로컬 스토리지에 저장
+          window.location.href = "main.html"; //메인으로 화면 이동
         });
     </script>
-</body>
+  </body>
 </html>
