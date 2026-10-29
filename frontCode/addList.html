@@ -21,7 +21,6 @@
         }
         body {
             font-family: Arial, sans-serif;
-            
         }
         input[type="text"] {
             margin: 10px;
@@ -33,6 +32,40 @@
         }
         h1{
             margin: 0px 0 30px 100px;
+        }
+        #addButton {
+            background-color: #6f9475;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 5px;
+            border: 1px solid #355e3b;
+        }
+        #cancelButton {
+            background-color: white;
+            color: #355e3b;
+            border: 1px solid #355e3b;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .button:hover {
+            background-color: #355e3b;
+            color: white;
+        }
+        .button {
+            float: right;
         }
     </style>
 </head>
@@ -48,8 +81,8 @@
         <h2>세부 사항</h2>
         <input type="text" id="listInfo" placeholder="예: 2박 3일, 일출보기" required>
         <br>
-        <button type="button" onclick="window.location.href='main.html'">취소</button>
-        <button type="submit">추가</button>
+        <button type="button" onclick="window.location.href='main.html'" id="cancelButton" class="button">취소</button>
+        <button type="submit" id="addButton" class="button">추가</button>
     </form>
 
     <script>
