@@ -25,12 +25,14 @@
         }
         input[type="text"] {
             margin: 10px;
-            padding: 10px;
+            padding: 10px 1100px 10px 10px;
             margin-bottom: 10px;
             box-sizing: border-box;
             border: 1px solid #355e3b;
             border-radius: 5px;
-
+        }
+        h1{
+            margin: 0px 0 30px 100px;
         }
     </style>
 </head>
@@ -41,10 +43,10 @@
     
     <form id="bucketForm">
         <h2>제목</h2>
-        <input type="text" id="listTitle" placeholder="버킷리스트 제목" required>
+        <input type="text" id="listTitle" placeholder="예: 부산 여행 가기" required>
         <br>
         <h2>세부 사항</h2>
-        <input type="text" id="listInfo" placeholder="버킷리스트 세부 사항" required>
+        <input type="text" id="listInfo" placeholder="예: 2박 3일, 일출보기" required>
         <br>
         <button type="button" onclick="window.location.href='main.html'">취소</button>
         <button type="submit">추가</button>
