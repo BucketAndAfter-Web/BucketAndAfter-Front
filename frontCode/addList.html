@@ -67,6 +67,10 @@
         .button {
             float: right;
         }
+        #bucketForm {
+            overflow: auto;
+        }
+
     </style>
 </head>
 <body>
@@ -74,14 +78,14 @@
 
     <h1>새 버킷리스트</h1>
     
-    <form id="bucketForm">
+    <form id="bucketForm" >
         <h2>제목</h2>
         <input type="text" id="listTitle" placeholder="예: 부산 여행 가기" required>
         <br>
         <h2>세부 사항</h2>
         <input type="text" id="listInfo" placeholder="예: 2박 3일, 일출보기" required>
         <br>
-        <button type="button" onclick="window.location.href='main.html'" id="cancelButton" class="button">취소</button>
+        <button type="button" onclick="window.location.href='main.html'" id="cancelButton" class="button" >취소</button>
         <button type="submit" id="addButton" class="button">추가</button>
     </form>
 
