@@ -1,0 +1,59 @@
+main a {
+  display: flex;
+  text-decoration: none;
+  color: #355e3b;
+  font-size: 15px;
+
+  margin: 40px 0;
+}
+
+main hr {
+  width: 100%;
+}
+
+form {
+  display: flex;
+  padding: 30px;
+  flex-direction: column;
+  align-items: stretch;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+div {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+form h1 {
+  font-size: 28px;
+  font-weight: bold;
+  color: #000;
+}
+
+.content-title {
+  padding-top: 30px;
+  padding-left: 30px;
+}
+
+.contents {
+  padding: 30px;
+  flex: 1;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+textarea {
+  width: 100%;
+  max-width: 760px;
+  box-sizing: border-box;
+}
+#log {
+  padding: 14px;
+  height: 170px;
+}
+
+label {
+  font-size: 40px;
+}

@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- 타이틀을 글 제목으로 바꿀거임 -->
+    <title>디테일 글 내용</title>
+    <link rel="stylesheet" href="../frontCode/main.css" />
+    <link rel="stylesheet" href="../frontCode/detail.css" />
+  </head>
+  <body>
+    <nav>
+      <h1>BucketAndAfter</h1>
+      <button>+ 버킷리스트 추가</button>
+    </nav>
+
+    <main>
+      <a class="go-back" href="./main.html">← 메인 화면으로 돌아가기</a>
+
+      <form>
+        <div class="content-title">
+          <h1>제목</h1>
+        </div>
+        <hr />
+        <!-- 작성 내용 -->
+        <div class="contents">
+          <div class="content">
+            <label for="detail">세부사항</label>
+            <textarea name="세부사항" id="detail"></textarea>
+            <div class="buttons">
+              <button class="edit">수정</button>
+              <button class="save">저장</button>
+            </div>
+          </div>
+          <div class="content">
+            <label for="log">달성 소감</label>
+            <textarea
+              name="소감"
+              id="log"
+              placeholder="감상을 작성해보세요"
+            ></textarea>
+            <div class="buttons">
+              <button class="edit">수정</button>
+              <button class="save">저장</button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </main>
+  </body>
+</html>
