@@ -5,61 +5,50 @@
     box-sizing: border-box;
 }
 #bucketForm {
-    border: 1px solid #6f9475;
+    border: 2px solid #6f9475;
     text-align: left;
     border-radius: 6px;
     padding: 20px;
     margin: 0px 100px;
+    padding: 40px;
 }
 body {
     font-family: Arial, sans-serif;
 }
 input[type="text"] {
-    display: block;
-    padding: 10px;
-    width: 96%;
-    margin: 0px auto;
+    padding: 15px;
     margin-bottom: 20px;
-    box-sizing: border-box;
-    border: 1px solid #6f9475;
-    border-radius: 5px;
+    border: 2px solid #6f9475;
+    border-radius: 6px;
 }
 input[type="text"]:focus {
     outline: none;
-    border: 1px solid #355e3b;
+    border: 2px solid #355e3b;
 }
 h1{
     margin: 0px 0 30px 100px;
 }
 #addButton {
-    background-color: #6f9475;
+    background-color: #355e3b;
     color: white;
-    border: none;
-    padding: 10px 20px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    cursor: pointer;
-    border-radius: 5px;
-    border: 1px solid #6f9475;
+    margin: 4px auto;
+    border: 2px solid #355e3b;
 }
 #cancelButton {
     background-color: white;
     color: #355e3b;
-    border: 1px solid #6f9475;
-    padding: 10px 20px;
+    margin: 4px 20px;
+}
+#addButton.button, #cancelButton.button {
+    border: 2px solid #355e3b;
     text-align: center;
-    text-decoration: none;
-    display: inline-block;
+    padding: 10px 20px;
     font-size: 16px;
-    margin: 4px 2px;
-    cursor: pointer;
-    border-radius: 5px;
+    border-radius: 6px;
 }
 #addButton.button:hover, #cancelButton.button:hover {
-    background-color: #355e3b;
+    background-color: #6f9475;
+    border: 2px solid #6f9475;
     color: white;
 }
 .button {
