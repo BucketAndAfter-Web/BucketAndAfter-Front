@@ -29,78 +29,56 @@
       }
 
       #listTable {
+        background-color: #ffffff;
         width: 100%;
+        border-radius: 6px;
+        border: 1px solid #355e3b;
         border-collapse: separate;
-        border-spacing: 0 10px; /* 줄 사이 간격 → 카드처럼 보이게 */
+        border-spacing: 0px;
+        overflow: hidden;
       }
 
       #listTable th {
-        font-size: 13px;
-        font-weight: 500;
-        color: var(--ink-soft);
+        font-size: 16px;
+        font-weight: bold;
+        color: #000000;
         text-align: left;
         padding: 0 16px 4px;
+        background-color: #dce8d8;
+        border-bottom: 1px solid #355e3b;
       }
 
       #listTable td {
-        background: var(--paper);
-        padding: 16px;
-        border-top: 1px solid var(--line);
-        border-bottom: 1px solid var(--line);
-      }
-
-      /* 줄 양 끝 둥글게 */
-      #listTable td:first-child {
-        border-left: 1px solid var(--line);
-        border-radius: var(--radius) 0 0 var(--radius);
-        width: 56px;
-        text-align: center;
-        font-family: "Gowun Batang", serif;
-        color: var(--ink-soft);
-      }
-      #listTable td:last-child {
-        border-right: 1px solid var(--line);
-        border-radius: 0 var(--radius) var(--radius) 0;
-        color: var(--ink-soft);
-      }
-
-      /* 제목 칸 */
-      #listTable td:nth-child(2) {
-        font-weight: 700;
-        width: 40%;
+        padding: 19px;
+        border-bottom: 1px solid #355e3b;
       }
 
       #listTable tbody tr {
         cursor: pointer;
         transition: transform 0.15s;
       }
-      #listTable tbody tr:hover {
-        transform: translateY(-2px);
-      }
+
       #listTable tbody tr:hover td {
+        background-color: #f2f2f2;
         border-color: var(--accent);
       }
 
-      /* 달성한 버킷 */
       #listTable tbody tr.completed td {
-        color: var(--done);
-        background: #faf7f2;
+        color: #777777;
       }
       #listTable tbody tr.completed td:nth-child(2) {
         text-decoration: line-through;
       }
       #listTable tbody tr.completed td:first-child::after {
-        content: " ✓";
         color: var(--highlight);
         font-weight: 700;
       }
 
-      /* 비어 있을 때 */
       #emptyMessage {
         display: none;
         text-align: center;
         padding: 48px 20px;
-        color: var(--ink-soft);
+        color: #777777;
       }
       #emptyMessage .btn {
         margin-top: 14px;
@@ -133,40 +111,35 @@
     <script>
       const bucketLists = JSON.parse(
         localStorage.getItem("bucketLists") || "[]",
-      ); //버킷 리스트 로컬 스토리지에 있는거 가져와서 선언
-      const listTable = document.getElementById("listTable"); //테이블 가져와서 선언
-      const listTableBody = listTable.querySelector("tbody"); //테이블의 바디 가져와서 선언
+      );
+      const listTable = document.getElementById("listTable");
+      const listTableBody = listTable.querySelector("tbody");
 
       if (bucketLists.length === 0) {
-        //버킷리스트가 하나도 없을 때
         listTable.style.display = "none";
         document.getElementById("emptyMessage").style.display = "block";
       }
 
       bucketLists.forEach(function (bucketList, index) {
-        //포이치문 돌리기
-        const newRow = document.createElement("tr"); //tr 생성
-        newRow.classList.toggle("completed", bucketList.completed === true); //달성 했는지 확인 후 css 클래스 설정
+        const newRow = document.createElement("tr");
+        newRow.classList.toggle("completed", bucketList.completed === true);
         newRow.addEventListener("click", function () {
           const page = bucketList.completed
             ? "yourSucceedBucket.html"
             : "writeThoughts.html";
-          //달성 여부 확인 후 소감 작성 페이지와 소감 확인 페이지 어느쪽으로 갈건지 설정
-          window.location.href = page + "?index=" + index; //인덱스 붙여서 화면 이동
-        }); //리스트 클릭 시 클릭이벤트
+          window.location.href = page + "?index=" + index;
+        });
 
-        //여기부터 셀 생성, 데이터 넣기
-        const indexCell = document.createElement("td"); //첫번째 셀 생성
-        indexCell.textContent = index + 1; //화면에는 1번부터 보이게 (이동할 때는 원래 index 사용)
-        newRow.appendChild(indexCell); //tr에 넣기
+        const indexCell = document.createElement("td");
+        indexCell.textContent = index + 1;
+        newRow.appendChild(indexCell);
 
         [bucketList.title, bucketList.info].forEach(function (value) {
-          //제목, 세부사항 셀
-          const cell = document.createElement("td"); //셀 만들기
-          cell.textContent = value; //텍스트에 제목 또는 세부사항(value) 넣기
-          newRow.appendChild(cell); //tr에 넣기
+          const cell = document.createElement("td");
+          cell.textContent = value;
+          newRow.appendChild(cell);
         });
-        listTableBody.appendChild(newRow); //table에 tr 넣기
+        listTableBody.appendChild(newRow);
       });
     </script>
   </body>
