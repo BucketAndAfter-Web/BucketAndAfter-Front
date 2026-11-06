@@ -19,17 +19,16 @@
 
       <form>
         <div class="content-title">
-          <h1>제목</h1>
+          <h1 id="detailTitle">제목</h1>
         </div>
         <hr />
         <!-- 작성 내용 -->
         <div class="contents">
           <div class="content">
             <label for="detail">세부사항</label>
-            <textarea name="세부사항" id="detail" placeholder="세부사항 내용~"></textarea>
+            <textarea name="세부사항" id="detail" placeholder="세부사항 내용~" disabled></textarea>
             <div class="buttons">
-              <button class="pri-btn">수정</button>
-              <button class="pri-btn">저장</button>
+              <button id="detailButton" type="button" class="sec-btn">수정</button>
             </div>
           </div>
           <div class="content">
@@ -38,16 +37,19 @@
               name="소감"
               id="log"
               placeholder="감상을 작성해보세요"
-            ></textarea>
+            disabled></textarea>
             <div class="buttons">
-              <button class="pri-btn">수정</button>
-              <button class="pri-btn">저장</button>
+              <button id="logBtn" type="button" class="sec-btn fun-btn">수정</button>
             </div>
           </div>
         </div>
         
       </form>
-      <button class="sec-btn" onclick="location.href='main.html'">목록으로</button>
+      <div class="detail-actions">
+        <button type="button" id="completeButton" class="pri-btn">목표 완료</button>
+        <button type="button" class="sec-btn" onclick="location.href='main.html'">목록으로</button>
+      </div>
     </main>
+    <script src="detail.js"></script>
   </body>
 </html>
