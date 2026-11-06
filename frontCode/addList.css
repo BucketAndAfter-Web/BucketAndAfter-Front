@@ -20,6 +20,7 @@ input[type="text"] {
     margin-bottom: 20px;
     border: 2px solid #6f9475;
     border-radius: 6px;
+    width: calc(100% - 36px);
 }
 input[type="text"]:focus {
     outline: none;
@@ -39,7 +40,7 @@ h1{
     color: #355e3b;
     margin: 4px 20px;
 }
-#addButton.button, #cancelButton.button {
+.button {
     border: 2px solid #355e3b;
     text-align: center;
     padding: 10px 20px;
