@@ -1,0 +1,60 @@
+.textField {
+    width: 50%;
+    padding: 10px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+}
+#bucketForm {
+    border: 2px solid #6f9475;
+    text-align: left;
+    border-radius: 6px;
+    padding: 20px;
+    margin: 0px 100px;
+    padding: 40px;
+}
+body {
+    font-family: Arial, sans-serif;
+}
+input[type="text"] {
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 2px solid #6f9475;
+    border-radius: 6px;
+    width: calc(100% - 36px);
+}
+input[type="text"]:focus {
+    outline: none;
+    border: 2px solid #355e3b;
+}
+h1{
+    margin: 0px 0 30px 100px;
+}
+#addButton {
+    background-color: #355e3b;
+    color: white;
+    margin: 4px auto;
+    border: 2px solid #355e3b;
+}
+#cancelButton {
+    background-color: white;
+    color: #355e3b;
+    margin: 4px 20px;
+}
+.button {
+    border: 2px solid #355e3b;
+    text-align: center;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 6px;
+}
+#addButton.button:hover, #cancelButton.button:hover {
+    background-color: #6f9475;
+    border: 2px solid #6f9475;
+    color: white;
+}
+.button {
+    float: right;
+}
+#bucketForm {
+    overflow: auto;
+}
