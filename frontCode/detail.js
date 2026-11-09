@@ -4,6 +4,8 @@ const logTextarea = document.getElementById("log");
 const detailButton = document.getElementById("detailButton");
 const logButton = document.getElementById("logButton");
 
+
+
 function connectEditSave(button, textarea) {
   button.addEventListener("click", () => {
     if (textarea.disabled) {
