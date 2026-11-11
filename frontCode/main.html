@@ -40,6 +40,7 @@
         border-collapse: separate;
         border-spacing: 0px;
         overflow: hidden;
+        table-layout: fixed;
       }
 
       #listTable th {
@@ -55,6 +56,11 @@
       #listTable td {
         padding: 19px;
         border-bottom: 2px solid #6f9475;
+        padding: 19px;
+        border-bottom: 2px solid #355e3b;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
 
       #listTable tbody tr {
@@ -64,7 +70,6 @@
 
       #listTable tbody tr:hover td {
         background-color: #f2f2f2;
-        border-color: var(--accent);
       }
 
       #listTable tbody tr.completed td {
