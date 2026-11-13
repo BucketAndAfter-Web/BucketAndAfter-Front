@@ -1,8 +1,8 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>버킷리스트 추가</title>
     <link rel="stylesheet" href="nav.css">
     <link rel="stylesheet" href="addList.css">
@@ -23,8 +23,10 @@
     </form>
 
     <script>
-        document.getElementById("bucketForm").addEventListener("submit", function (event) {
-            event.preventDefault();//폼 제출 이후 바로 화면전환 안되게 설정. 
+      document
+        .getElementById("bucketForm")
+        .addEventListener("submit", function (event) {
+          event.preventDefault(); //폼 제출 이후 바로 화면전환 안되게 설정.
 
             const bucketLists = JSON.parse(localStorage.getItem("bucketLists") || "[]");//원래 스토리지 데이터 가져오기
             bucketLists.push({
@@ -36,5 +38,5 @@
             window.location.href = "main.html";//메인으로 화면 이동
         });
     </script>
-</body>
+  </body>
 </html>

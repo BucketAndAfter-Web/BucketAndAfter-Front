@@ -1,80 +1,169 @@
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>BucketAndAfter</title>
-    <link rel="stylesheet" href="nav.css">
+    <link rel="stylesheet" href="nav.css" />
     <style>
-        #listTable {
-            width: 80%;
-            border-collapse: separate;
-            border-spacing: 0 0px;
-            margin: 0 auto;
-        }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        font-family: Arial;
+      }
 
-        #listTable th,
-        #listTable td {
-            border: 1px solid #000;
-            padding: 12px;
-        }
+      body {
+        font-size: 16px;
+        background: #ffffff;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+      .container {
+        padding: 44px 120px;
+        flex: 1;
+      }
 
-        #listTable th {
-            background-color: #f2f2f2;
-        }
+      h1 {
+        font-size: 28px;
+        font-weight: bold;
+        color: #000000;
+        margin-bottom: 24px;
+      }
 
-        #listTable tbody tr {
-            cursor: pointer;
-        }
+      #listTable {
+        background-color: #ffffff;
+        width: 100%;
+        border-radius: 6px;
+        border: 2px solid #6f9475;
+        border-collapse: separate;
+        border-spacing: 0px;
+        overflow: hidden;
+        table-layout: fixed;
+      }
 
-        #listTable tbody tr.completed {
-            color: #828282;
-            text-decoration: line-through;
-        }
+      #listTable th {
+        font-size: 16px;
+        font-weight: bold;
+        color: #000000;
+        text-align: left;
+        padding: 19px;
+        background-color: #dce8d8;
+        border-bottom: 2px solid #6f9475;
+      }
 
+      #listTable td {
+        padding: 19px;
+        border-bottom: 2px solid #6f9475;
+        padding: 19px;
+        border-bottom: 2px solid #6f9475;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      #listTable tbody tr {
+        cursor: pointer;
+        transition: transform 0.15s;
+      }
+
+      #listTable tbody tr:hover td {
+        background-color: #f2f2f2;
+      }
+
+      #listTable tbody tr.completed td {
+        color: #777777;
+      }
+      #listTable tbody tr.completed td:nth-child(2) {
+        text-decoration: line-through;
+      }
+      #listTable tbody tr.completed td:first-child::after {
+        color: var(--highlight);
+        font-weight: 700;
+      }
+      #listTable tbody tr:last-child td {
+        border-bottom: none;
+      }
+
+      #emptyMessage {
+        display: none;
+        text-align: center;
+        padding: 48px 20px;
+        color: #777777;
+      }
+      #emptyMessage .btn {
+        margin-top: 14px;
+      }
+
+      footer {
+        margin-top: 80px;
+        height: 64px;
+        flex-shrink: 0;
+        background-color: #dce8d8;
+        border-bottom: 2px solid #6f9475;
+      }
     </style>
-</head>
-<body>
-    <iframe src="nav.html" class="headerTemplate" target="_top"></iframe>
-    <table id="listTable">
+  </head>
+  <body>
+    <iframe src="nav.html" class="headerTemplate"></iframe>
+
+    <main class="container">
+      <h1 class="page-title">나의 버킷리스트</h1>
+
+      <table id="listTable">
         <thead>
-            <tr>
-            <th></th>
-            <th><b>제목</b></th>
-            <th><p>세부 사항</p></th>
-            </tr>
+          <tr>
+            <th>No.</th>
+            <th>제목</th>
+            <th>세부 사항</th>
+          </tr>
         </thead>
         <tbody></tbody>
-    </table>
+      </table>
+
+      <div id="emptyMessage" class="card">
+        아직 적어둔 버킷리스트가 없어요.<br />
+        <a href="addList.html" class="btn">첫 버킷리스트 적기</a>
+      </div>
+    </main>
+
+    <footer></footer>
+
     <script>
-        const bucketLists = JSON.parse(localStorage.getItem("bucketLists") || "[]");//버킷 리스트 로컬 스토리지에 있는거 가져와서 선언
-        const listTable = document.getElementById("listTable");//테이블 가져와서 선언
-        const listTableBody = listTable.querySelector("tbody");//테이블의 바디 가져와서 선언
+      const bucketLists = JSON.parse(
+        localStorage.getItem("bucketLists") || "[]",
+      );
+      const listTable = document.getElementById("listTable");
+      const listTableBody = listTable.querySelector("tbody");
 
-        bucketLists.forEach(
-            function (bucketList, index) {//포이치문 돌리기
-                const newRow = document.createElement("tr");//tr 생성
-                newRow.classList.toggle("completed", bucketList.completed === true);//달성 했는지 확인 후 css 클래스 설정
-                newRow.addEventListener("click", function () {
-                    const page = bucketList.completed ? "yourSucceedBucket.html" : "writeThoughts.html";
-                    //달성 여부 확인 후 소감 작성 페이지와 소감 확인 페이지 어느쪽으로 갈건지 설정
-                    window.location.href = page + "?index=" + index;//인덱스 붙여서 화면 이동
-                });//리스트 클릭 시 클릭이벤트
+      if (bucketLists.length === 0) {
+        listTable.style.display = "none";
+        document.getElementById("emptyMessage").style.display = "block";
+      }
 
-                //여기부터 셀 생성, 데이터 넣기
-                const indexCell = document.createElement("td");//첫번째 셀 생성
-                indexCell.textContent = index;//텍스트에 인덱스 번호 넣기
-                newRow.appendChild(indexCell);//tr에 넣기
+      bucketLists.forEach(function (bucketList, index) {
+        const newRow = document.createElement("tr");
+        newRow.classList.toggle("completed", bucketList.completed === true);
+        newRow.addEventListener("click", function () {
+          const page = bucketList.completed
+            ? "yourSucceedBucket.html"
+            : "writeThoughts.html";
+          window.location.href = page + "?index=" + index;
+        });
 
-                [bucketList.title, bucketList.info].forEach(function (value) {//제목, 세부사항 셀
-                    const cell = document.createElement("td");//셀 만들기
-                    cell.textContent = value;//텍스트에 제목 또는 세부사항(value) 넣기
-                    newRow.appendChild(cell);//tr에 넣기
-                });
-                listTableBody.appendChild(newRow);//table에 tr 넣기
-            }
-        );
+        const indexCell = document.createElement("td");
+        indexCell.textContent = index + 1;
+        newRow.appendChild(indexCell);
+
+        [bucketList.title, bucketList.info].forEach(function (value) {
+          const cell = document.createElement("td");
+          cell.textContent = value;
+          newRow.appendChild(cell);
+        });
+        listTableBody.appendChild(newRow);
+      });
+      const resetArea = document.getElementById("resetArea");
     </script>
-</body>
+  </body>
 </html>
