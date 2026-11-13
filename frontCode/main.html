@@ -146,10 +146,7 @@
         const newRow = document.createElement("tr");
         newRow.classList.toggle("completed", bucketList.completed === true);
         newRow.addEventListener("click", function () {
-          const page = bucketList.completed
-            ? "yourSucceedBucket.html"
-            : "writeThoughts.html";
-          window.location.href = page + "?index=" + index;
+          window.location.href = "detail.html?index=" + index;
         });
 
         const indexCell = document.createElement("td");
