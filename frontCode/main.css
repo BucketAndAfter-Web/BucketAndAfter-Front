@@ -7,7 +7,7 @@ body {
 }
 
 main {
-  margin-top: 64px;
+  padding: 64px 120px 0px 120px;
 }
 
 nav {
@@ -57,5 +57,36 @@ nav button {
 nav button:hover{
   color: #fff;
 
+  background-color: #6f9475;
+}
+
+.pri-btn {
+  padding: 10px 24px;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #fff;
+  background-color: #355e3b;
+  border: 1px solid #355e3b;
+  
+}
+
+.pri-btn:hover {
+  background-color: #6f9475;
+}
+
+.sec-btn {
+  padding: 10px 24px;
+  border: 1px solid #355e3b;
+  border-radius: 6px;
+  color: #355e3b;
+  background-color: #fff;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.sec-btn:hover {
+  color: #fff;
   background-color: #6f9475;
 }

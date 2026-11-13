@@ -1,0 +1,95 @@
+main a {
+  display: flex;
+  text-decoration: none;
+  color: #355e3b;
+  font-size: 15px;
+
+  margin: 40px 0;
+}
+
+main hr {
+  width: 100%;
+}
+
+form {
+  display: flex;
+  padding: 30px;
+  flex-direction: column;
+  align-items: stretch;
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+div {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+form h1 {
+  font-size: 28px;
+  font-weight: bold;
+  color: #000;
+}
+
+.content-title {
+  padding-top: 30px;
+  padding-left: 30px;
+}
+
+.contents {
+  border: 1px solid #355e3b;
+  border-radius: 6px;
+  padding: 30px;
+  gap: 30px;
+  flex: 1;
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+.content {
+  width: 100%;
+  min-width: 0;
+}
+
+textarea {
+  padding: 18px;
+  margin: 20px 0;
+  font-size: 16px;
+  font-weight: bold;
+  width: 100%;
+  max-width: 760px;
+  min-width: 0;
+  border: 1px solid #355e3b;
+  box-sizing: border-box;
+  border-radius: 6px;
+  resize: vertical;
+}
+
+textarea:enabled {
+  border: 1px solid lightgray;
+}
+
+label {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+
+}
+
+.detail-actions {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 22px 30px 44px;
+}
