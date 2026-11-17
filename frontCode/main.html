@@ -4,109 +4,14 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>BucketAndAfter</title>
-    <link rel="stylesheet" href="nav.css" />
-    <style>
-      * {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-        font-family: Arial;
-      }
-
-      body {
-        font-size: 16px;
-        background: #ffffff;
-        min-height: 100vh;
-        display: flex;
-        flex-direction: column;
-      }
-      .container {
-        padding: 44px 120px;
-        flex: 1;
-      }
-
-      h1 {
-        font-size: 28px;
-        font-weight: bold;
-        color: #000000;
-        margin-bottom: 24px;
-      }
-
-      #listTable {
-        background-color: #ffffff;
-        width: 100%;
-        border-radius: 6px;
-        border: 2px solid #6f9475;
-        border-collapse: separate;
-        border-spacing: 0px;
-        overflow: hidden;
-        table-layout: fixed;
-      }
-
-      #listTable th {
-        font-size: 16px;
-        font-weight: bold;
-        color: #000000;
-        text-align: left;
-        padding: 19px;
-        background-color: #dce8d8;
-        border-bottom: 2px solid #6f9475;
-      }
-
-      #listTable td {
-        padding: 19px;
-        border-bottom: 2px solid #6f9475;
-        padding: 19px;
-        border-bottom: 2px solid #6f9475;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-      }
-
-      #listTable tbody tr {
-        cursor: pointer;
-        transition: transform 0.15s;
-      }
-
-      #listTable tbody tr:hover td {
-        background-color: #f2f2f2;
-      }
-
-      #listTable tbody tr.completed td {
-        color: #777777;
-      }
-      #listTable tbody tr.completed td:nth-child(2) {
-        text-decoration: line-through;
-      }
-      #listTable tbody tr.completed td:first-child::after {
-        color: var(--highlight);
-        font-weight: 700;
-      }
-      #listTable tbody tr:last-child td {
-        border-bottom: none;
-      }
-
-      #emptyMessage {
-        display: none;
-        text-align: center;
-        padding: 48px 20px;
-        color: #777777;
-      }
-      #emptyMessage .btn {
-        margin-top: 14px;
-      }
-
-      footer {
-        margin-top: 80px;
-        height: 64px;
-        flex-shrink: 0;
-        background-color: #dce8d8;
-        border-bottom: 2px solid #6f9475;
-      }
-    </style>
+    <link rel="stylesheet" href="CSS/nav.css" />
+    <link rel="stylesheet" href="CSS/main.css" />
   </head>
   <body>
-    <iframe src="nav.html" class="headerTemplate"></iframe>
+    <nav>
+      <h1><a href="main.html">BucketAndAfter</a></h1>
+      <button type="button" onclick="location.href='addList.html'">+ 버킷리스트 추가</button>
+    </nav>
 
     <main class="container">
       <h1 class="page-title">나의 버킷리스트</h1>

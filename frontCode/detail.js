@@ -18,7 +18,7 @@ console.log("선택한 번호:", index);
 console.log("찾은 버킷:", bucketList);
 
 if (bucketList) {
-  // detailTitle.textContet에 bucketList.title 넣거나 비우거나
+  document.title = bucketList.title;
   document.getElementById("detailTitle").textContent = bucketList.title || "";
   detailTextarea.value = bucketList.info || "";
   logTextarea.value = bucketList.thoughts || "";
@@ -34,7 +34,7 @@ function connectEditSave(button, textarea, property) {
       //내용 저장
       bucketList[property] = textarea.value.trim();
       bucketLists[index] = bucketList;
-      localStorage.setItem("bucketLists", JSON.stringify(bucketLists))
+      localStorage.setItem("bucketLists", JSON.stringify(bucketLists));
 
       textarea.disabled = true;
       button.textContent = "수정";
@@ -55,4 +55,4 @@ completeBtn.addEventListener("click", () => {
   localStorage.setItem("bucketLists", JSON.stringify(bucketLists));
 
   window.location.href = "main.html";
-})
+});
