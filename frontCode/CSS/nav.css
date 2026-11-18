@@ -85,6 +85,7 @@ footer {
   cursor: pointer;
 }
 
+
 .pri-btn {
   color: #fff;
   background: var(--accent);
@@ -102,4 +103,19 @@ footer {
 .sec-btn:hover {
   color: #fff;
   background: var(--accent-hover);
+}
+
+.del-btn {
+  padding: 10px 24px;
+  background-color: #ff1f1f;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+  border-radius: var(--radius);
+  font-size: 16px;
+}
+
+.del-btn:hover {
+  background-color: #aa1818;
 }

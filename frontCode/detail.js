@@ -14,6 +14,8 @@ const bucketList = indexText === null ? null : bucketLists[index];
 
 const completeBtn = document.getElementById("completeButton");
 
+const deleteBtn = document.getElementById("delete")
+
 console.log("선택한 번호:", index);
 console.log("찾은 버킷:", bucketList);
 
@@ -54,5 +56,12 @@ completeBtn.addEventListener("click", () => {
   bucketLists[index] = bucketList;
   localStorage.setItem("bucketLists", JSON.stringify(bucketLists));
 
+  window.location.href = "main.html";
+});
+
+deleteBtn.addEventListener("click", () => {
+  bucketLists.splice(index, 1);
+  localStorage.setItem("bucketLists", JSON.stringify(bucketLists));
+  alert("삭제되었습니다.");
   window.location.href = "main.html";
 });
