@@ -29,8 +29,17 @@
         <!-- 작성 내용 -->
         <div class="contents">
           <div class="content">
+            <h2>제목</h2>
+            <input id="titleField" type="text" aria-label="제목" disabled />
+            <p id="titleError" class="field-error" role="alert" hidden>텍스트 필드를 전부 채워주세요.</p>
+            <div class="buttons">
+              <button id="titleButton" type="button" class="sec-btn">수정하기</button>
+            </div>
+          </div>
+          <div class="content">
             <h2 for="detail">세부사항</h2>
             <textarea name="세부사항" id="detail" placeholder="세부사항 내용~" disabled></textarea>
+            <p id="detailError" class="field-error" role="alert" hidden>텍스트 필드를 전부 채워주세요.</p>
             <div class="buttons">
               <button id="detailButton" type="button" class="sec-btn">수정하기</button>
             </div>
@@ -42,6 +51,7 @@
               id="log"
               placeholder="감상을 작성해보세요"
             disabled></textarea>
+            <p id="logError" class="field-error" role="alert" hidden>텍스트 필드를 전부 채워주세요.</p>
             <div class="buttons">
               <button id="logButton" type="button" class="sec-btn">수정하기</button>
             </div>
