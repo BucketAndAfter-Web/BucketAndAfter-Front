@@ -14,58 +14,78 @@
     </nav>
 
     <main class="container">
-      <h1 class="page-title">나의 버킷리스트</h1>
+      <header class="list-intro">
+        <p class="eyebrow">MY WISHES, MY WAY</p>
+        <h1 class="page-title">나의 다음 여정</h1>
+        <p class="page-description">목표를 하나씩 이루며 나만의 여정을 만들어가요.</p>
+      </header>
 
-      <table id="listTable">
-        <thead>
-          <tr>
-            <th>No.</th>
-            <th>제목</th>
-            <th>세부 사항</th>
-          </tr>
-        </thead>
-        <tbody></tbody>
-      </table>
+      <ol id="listTimeline" class="list-timeline" aria-label="나의 버킷리스트"></ol>
 
-      <div id="emptyMessage" class="card">
-        아직 적어둔 버킷리스트가 없어요.<br />
-        <a href="add-list.html" class="btn">첫 버킷리스트 적기</a>
-      </div>
+      <section id="emptyMessage" class="empty-state" hidden>
+        <span class="empty-icon" aria-hidden="true">＋</span>
+        <h2>아직 시작된 여정이 없어요</h2>
+        <p>첫 목표를 적으면 나만의 여정이 시작돼요.</p>
+        <a href="add-list.html" class="empty-action">첫 버킷리스트 적기</a>
+      </section>
     </main>
 
     <footer></footer>
 
     <script>
-      const bucketLists = JSON.parse(
-        localStorage.getItem("bucketLists") || "[]",
-      );
-      const listTable = document.getElementById("listTable");
-      const listTableBody = listTable.querySelector("tbody");
-
-      if (bucketLists.length === 0) {
-        listTable.style.display = "none";
-        document.getElementById("emptyMessage").style.display = "block";
+      const bucketLists = JSON.parse(localStorage.getItem("bucketLists") || "[]");
+      const timeline = document.getElementById("listTimeline");
+      function formatAchievementDate(value) {
+        if (!value) return "미기록";
+        const [year, month, day] = value.split("-");
+        return `${year}.${month}.${day}`;
       }
 
-      bucketLists.forEach(function (bucketList, index) {
-        const newRow = document.createElement("tr");
-        newRow.classList.toggle("completed", bucketList.completed === true);
-        newRow.addEventListener("click", function () {
-          window.location.href = "detail.html?index=" + index;
-        });
+      if (bucketLists.length === 0) {
+        document.getElementById("emptyMessage").hidden = false;
+        timeline.hidden = true;
+      }
 
-        const indexCell = document.createElement("td");
-        indexCell.textContent = index + 1;
-        newRow.appendChild(indexCell);
+      bucketLists.forEach((bucketList, index) => {
+        const item = document.createElement("li");
+        item.className = "timeline-item";
+        if (bucketList.completed === true) item.classList.add("completed");
 
-        [bucketList.title, bucketList.info].forEach(function (value) {
-          const cell = document.createElement("td");
-          cell.textContent = value;
-          newRow.appendChild(cell);
-        });
-        listTableBody.appendChild(newRow);
+        const link = document.createElement("a");
+        link.className = "timeline-link";
+        link.href = `detail.html?index=${index}`;
+        link.setAttribute("aria-label", `${bucketList.title || "제목 없음"} 상세 보기`);
+
+        const number = document.createElement("span");
+        number.className = "timeline-number";
+        number.setAttribute("aria-hidden", "true");
+        number.textContent = String(index + 1).padStart(2, "0");
+
+        const copy = document.createElement("span");
+        copy.className = "timeline-copy";
+
+        const title = document.createElement("span");
+        title.className = "timeline-title";
+        title.textContent = bucketList.title || "제목 없음";
+
+        const info = document.createElement("span");
+        info.className = "timeline-info";
+        info.textContent = bucketList.info || "세부 사항을 추가해보세요.";
+
+        copy.append(title, info);
+        link.append(number, copy);
+
+        if (bucketList.completed === true) {
+          const achievementDate = document.createElement("time");
+          achievementDate.className = "timeline-date";
+          achievementDate.textContent = `달성일 ${formatAchievementDate(bucketList.completedAt)}`;
+          if (bucketList.completedAt) achievementDate.dateTime = bucketList.completedAt;
+          link.appendChild(achievementDate);
+        }
+
+        item.appendChild(link);
+        timeline.appendChild(item);
       });
-      const resetArea = document.getElementById("resetArea");
     </script>
   </body>
 </html>

@@ -1,54 +1,21 @@
-.add-list-title {
-  margin: 0 0 30px;
-  font-size: 28px;
-}
+.add-list-title { margin: 0 0 24px; color: var(--main-800); font-size: clamp(27px, 4vw, 34px); letter-spacing: -.8px; }
 
-#bucketForm {
-  overflow: auto;
-  margin: 0;
-  padding: 40px;
-  border: 2px solid #6f9475;
-  border-radius: 6px;
-  text-align: left;
-}
+#bucketForm { overflow: auto; padding: clamp(18px, 4vw, 34px); border: 1px solid var(--line); border-radius: 18px; background: #fff; box-shadow: 0 12px 38px rgba(0, 12, 39, .05); }
+#bucketForm .contents { counter-reset: form-step; }
+#bucketForm .content { position: relative; margin: 0; padding: 0 0 27px 54px; counter-increment: form-step; }
+#bucketForm .content + .content { padding-top: 24px; border-top: 1px solid #e9f3fa; }
+#bucketForm .content::before { position: absolute; top: 0; left: 0; display: grid; place-items: center; width: 36px; height: 36px; border: 1px solid var(--main-300); border-radius: 50%; color: var(--main-800); background: var(--main-100); content: counter(form-step, decimal-leading-zero); font-size: 10px; font-weight: 800; }
+#bucketForm .content + .content::before { top: 24px; }
+#bucketForm .content h2 { margin: 3px 0 12px; color: var(--main-800); font-size: 16px; }
+#bucketForm textarea { display: block; min-height: 96px; }
+#bucketForm .form-actions { display: flex; justify-content: flex-end; gap: 10px; padding-top: 4px; }
+#bucketForm .button { min-width: 92px; padding: 10px 18px; border: 1px solid var(--main-800); border-radius: 999px; font-size: 14px; font-weight: 700; cursor: pointer; transition: background .16s ease, color .16s ease; }
+#addButton { color: #fff; background: var(--main-800); }
+#cancelButton { color: var(--main-800); background: #fff; }
+#addButton:hover, #cancelButton:hover { color: #fff; background: var(--accent-hover); border-color: var(--accent-hover); }
 
-#bucketForm input[type="text"] {
-  width: 100%;
-  margin-bottom: 20px;
-  padding: 15px;
-  border: 2px solid #6f9475;
-  border-radius: 6px;
-}
-
-#bucketForm input[type="text"]:focus {
-  outline: none;
-  border-color: #355e3b;
-}
-
-#bucketForm .button {
-  float: right;
-  margin: 4px 0 4px 16px;
-  padding: 10px 20px;
-  border: 2px solid #355e3b;
-  border-radius: 6px;
-  font-size: 16px;
-  text-align: center;
-  cursor: pointer;
-}
-
-#addButton {
-  color: #fff;
-  background: #355e3b;
-}
-
-#cancelButton {
-  color: #355e3b;
-  background: #fff;
-}
-
-#addButton:hover,
-#cancelButton:hover {
-  color: #fff;
-  background: #6f9475;
-  border-color: #6f9475;
+@media (max-width: 600px) {
+  #bucketForm { padding: 18px; border-radius: 14px; }
+  #bucketForm .content { padding-left: 46px; }
+  #bucketForm .content::before { width: 32px; height: 32px; }
 }
