@@ -1,0 +1,120 @@
+main {
+  padding: 96px 150px 0;
+}
+
+h2 {
+  margin: 0 0 12px;
+}
+
+
+textarea {
+  width: 100%;
+  max-width: 760px;
+  min-width: 0;
+  margin-bottom: 10px;
+  padding: 18px;
+  border: 1px solid #355e3b;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: bold;
+  resize: vertical;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.container {
+  flex: 1;
+  padding: 96px 120px 0;
+}
+
+.page-title {
+  margin: 0 0 24px;
+  color: var(--ink);
+  font-size: 28px;
+  font-weight: bold;
+}
+
+#listTable {
+  width: 100%;
+  overflow: hidden;
+  border: 2px solid #6f9475;
+  border-radius: 6px;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: #fff;
+  table-layout: fixed;
+}
+
+#listTable th {
+  padding: 19px;
+  border-bottom: 2px solid #6f9475;
+  background: #dce8d8;
+  color: #000;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: left;
+}
+
+#listTable td {
+  padding: 19px;
+  border-bottom: 2px solid #6f9475;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+#listTable tbody tr {
+  cursor: pointer;
+}
+
+#listTable tbody tr:hover td {
+  background: #f2f2f2;
+}
+
+#listTable tbody tr.completed td {
+  color: var(--done);
+}
+
+#listTable tbody tr.completed td:nth-child(2) {
+  text-decoration: line-through;
+}
+
+#listTable tbody tr.completed td:first-child::after {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+#listTable tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+#emptyMessage {
+  display: none;
+  padding: 48px 20px;
+  color: var(--ink-soft);
+  text-align: center;
+}
+
+#emptyMessage .btn {
+  display: inline-block;
+  margin-top: 14px;
+  padding: 10px 24px;
+  border: 1px solid var(--accent);
+  border-radius: var(--radius);
+  color: #fff;
+  background: var(--accent);
+  font-weight: bold;
+  text-decoration: none;
+}
+
+#emptyMessage .btn:hover {
+  background: var(--accent-hover);
+}
+
+.container + footer {
+  margin-top: 80px;
+}

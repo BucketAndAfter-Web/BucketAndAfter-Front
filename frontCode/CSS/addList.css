@@ -1,0 +1,54 @@
+.add-list-title {
+  margin: 0 0 30px;
+  font-size: 28px;
+}
+
+#bucketForm {
+  overflow: auto;
+  margin: 0;
+  padding: 40px;
+  border: 2px solid #6f9475;
+  border-radius: 6px;
+  text-align: left;
+}
+
+#bucketForm input[type="text"] {
+  width: 100%;
+  margin-bottom: 20px;
+  padding: 15px;
+  border: 2px solid #6f9475;
+  border-radius: 6px;
+}
+
+#bucketForm input[type="text"]:focus {
+  outline: none;
+  border-color: #355e3b;
+}
+
+#bucketForm .button {
+  float: right;
+  margin: 4px 0 4px 16px;
+  padding: 10px 20px;
+  border: 2px solid #355e3b;
+  border-radius: 6px;
+  font-size: 16px;
+  text-align: center;
+  cursor: pointer;
+}
+
+#addButton {
+  color: #fff;
+  background: #355e3b;
+}
+
+#cancelButton {
+  color: #355e3b;
+  background: #fff;
+}
+
+#addButton:hover,
+#cancelButton:hover {
+  color: #fff;
+  background: #6f9475;
+  border-color: #6f9475;
+}

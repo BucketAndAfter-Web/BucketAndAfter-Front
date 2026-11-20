@@ -1,0 +1,105 @@
+:root {
+  --bg: #ffffff;
+  --paper: #ffffff;
+  --ink: #000000;
+  --ink-soft: #777777;
+  --line: #355e3b;
+  --accent: #355e3b;
+  --accent-hover: #6f9475;
+  --accent-soft: #dce8d8;
+  --done: #777777;
+  --placeholder: #999999;
+  --radius: 6px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  background: var(--bg);
+  color: var(--ink);
+}
+
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 64px;
+  margin: 0;
+  padding: 0 120px;
+  color: var(--accent);
+  background: var(--accent-soft);
+  border-bottom: 1px solid var(--accent);
+}
+
+nav h1 {
+  margin: 0;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+nav h1 a {
+  color: inherit;
+  text-decoration: none;
+}
+
+nav button {
+  padding: 7px 16px;
+  border: 2px solid var(--accent);
+  border-radius: 5px;
+  color: var(--accent);
+  background: #fff;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+nav button:hover {
+  color: #fff;
+  background: var(--accent-hover);
+}
+
+footer {
+  height: 64px;
+  flex-shrink: 0;
+  background: var(--accent-soft);
+  border-top: 1px solid var(--accent);
+}
+
+.pri-btn,
+.sec-btn {
+  padding: 10px 24px;
+  border: 1px solid var(--accent);
+  border-radius: var(--radius);
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.pri-btn {
+  color: #fff;
+  background: var(--accent);
+}
+
+.pri-btn:hover {
+  background: var(--accent-hover);
+}
+
+.sec-btn {
+  color: var(--accent);
+  background: #fff;
+}
+
+.sec-btn:hover {
+  color: #fff;
+  background: var(--accent-hover);
+}
