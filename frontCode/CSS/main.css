@@ -14,6 +14,7 @@ main {
 .list-timeline::before { position: absolute; top: 22px; bottom: 28px; left: 22px; width: 2px; background: var(--main-300); content: ""; }
 .timeline-item { position: relative; margin: 0; }
 .timeline-link { position: relative; display: grid; grid-template-columns: 46px minmax(0, 1fr) auto; align-items: center; gap: 15px; min-height: 82px; padding: 13px 16px 13px 0; color: inherit; text-decoration: none; border-bottom: 1px solid #e9f3fa; }
+.timeline-item.completed .timeline-title { color: #64758b; text-decoration: line-through; text-decoration-color: var(--main-600); }
 .timeline-link:hover .timeline-title { color: #287fbd; }
 .timeline-number { z-index: 1; display: grid; place-items: center; width: 46px; height: 46px; border: 1px solid var(--main-300); border-radius: 50%; color: var(--main-800); background: #fff; font-size: 11px; font-weight: 800; }
 .timeline-copy { display: grid; gap: 6px; min-width: 0; }
@@ -21,7 +22,7 @@ main {
 .timeline-info { overflow: hidden; color: var(--ink-soft); font-size: 12px; line-height: 1.5; text-overflow: ellipsis; white-space: nowrap; }
 .timeline-date { color: #53657e; font-size: 11px; font-weight: 700; white-space: nowrap; }
 .timeline-item.completed .timeline-number { background: var(--main-300); }
-.timeline-item.completed .timeline-title { color: #64758b; text-decoration: line-through; text-decoration-color: currentColor; }
+.timeline-item.completed .timeline-title { color: #64758b; text-decoration: line-through; text-decoration-color: #64758b; }
 
 .empty-state { min-height: 290px; padding: 38px 20px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; border: 1px dashed var(--main-600); border-radius: 16px; background: #f8fcff; }
 .empty-state[hidden] { display: none; }
