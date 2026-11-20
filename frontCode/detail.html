@@ -52,6 +52,13 @@
               placeholder="감상을 작성해보세요"
             disabled></textarea>
             <p id="logError" class="field-error" role="alert" hidden>텍스트 필드를 전부 채워주세요.</p>
+            <div id="photoControls" class="photo-controls" hidden>
+              <label for="thoughtPhotoInput" class="photo-upload">사진 추가</label>
+              <input id="thoughtPhotoInput" type="file" accept="image/*" multiple hidden />
+              <span>최대 5장 · 사진은 저장 후 이 화면에 표시됩니다.</span>
+            </div>
+            <p id="photoError" class="field-error" role="alert" hidden></p>
+            <div id="thoughtPhotoGallery" class="thought-photo-gallery" aria-label="달성 소감 사진"></div>
             <div class="buttons">
               <button id="logButton" type="button" class="sec-btn">수정하기</button>
             </div>
@@ -64,6 +71,10 @@
         <button type="button" class="sec-btn" onclick="location.href='main.html'">목록으로</button>
       </div>
     </main>
+    <dialog id="photoViewer" class="photo-viewer" aria-label="사진 크게 보기">
+      <button type="button" id="closePhotoViewer" class="photo-viewer-close">닫기</button>
+      <img id="photoViewerImage" alt="" />
+    </dialog>
     <script src="detail.js"></script>
   </body>
 </html>

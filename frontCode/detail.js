@@ -5,6 +5,14 @@ const logTextarea = document.getElementById("log");
 const titleButton = document.getElementById("titleButton");
 const detailButton = document.getElementById("detailButton");
 const logButton = document.getElementById("logButton");
+const photoInput = document.getElementById("thoughtPhotoInput");
+const photoControls = document.getElementById("photoControls");
+const photoError = document.getElementById("photoError");
+const photoGallery = document.getElementById("thoughtPhotoGallery");
+const photoViewer = document.getElementById("photoViewer");
+const photoViewerImage = document.getElementById("photoViewerImage");
+const closePhotoViewer = document.getElementById("closePhotoViewer");
+let thoughtPhotos = [];
 
 const params = new URLSearchParams(window.location.search);
 const indexText = params.get("index");
@@ -36,6 +44,115 @@ function validateField(field, error) {
   return isValid;
 }
 
+function renderThoughtPhotos() {
+  photoGallery.replaceChildren();
+  photoControls.hidden = logTextarea.disabled;
+
+  thoughtPhotos.forEach((source, index) => {
+    const figure = document.createElement("figure");
+    figure.className = "thought-photo";
+
+    const openButton = document.createElement("button");
+    openButton.type = "button";
+    openButton.className = "thought-photo-open";
+    openButton.setAttribute("aria-label", `사진 ${index + 1} 크게 보기`);
+
+    const image = document.createElement("img");
+    image.src = source;
+    image.alt = `달성 소감 사진 ${index + 1}`;
+    openButton.appendChild(image);
+    openButton.addEventListener("click", () => {
+      photoViewerImage.src = source;
+      photoViewerImage.alt = `달성 소감 사진 ${index + 1}`;
+      photoViewer.showModal();
+    });
+    figure.appendChild(openButton);
+
+    if (!logTextarea.disabled) {
+      const removeButton = document.createElement("button");
+      removeButton.type = "button";
+      removeButton.className = "thought-photo-remove";
+      removeButton.textContent = "×";
+      removeButton.setAttribute("aria-label", `사진 ${index + 1} 삭제`);
+      removeButton.addEventListener("click", () => {
+        thoughtPhotos.splice(index, 1);
+        renderThoughtPhotos();
+      });
+      figure.appendChild(removeButton);
+    }
+
+    photoGallery.appendChild(figure);
+  });
+}
+
+closePhotoViewer.addEventListener("click", () => photoViewer.close());
+photoViewer.addEventListener("click", (event) => {
+  if (event.target === photoViewer) photoViewer.close();
+});
+
+function compressPhoto(file) {
+  return new Promise((resolve, reject) => {
+    const objectUrl = URL.createObjectURL(file);
+    const image = new Image();
+    image.onload = () => {
+      const maxSize = 1200;
+      const scale = Math.min(1, maxSize / Math.max(image.naturalWidth, image.naturalHeight));
+      const canvas = document.createElement("canvas");
+      canvas.width = Math.max(1, Math.round(image.naturalWidth * scale));
+      canvas.height = Math.max(1, Math.round(image.naturalHeight * scale));
+      const context = canvas.getContext("2d");
+      context.fillStyle = "#fff";
+      context.fillRect(0, 0, canvas.width, canvas.height);
+      context.drawImage(image, 0, 0, canvas.width, canvas.height);
+      URL.revokeObjectURL(objectUrl);
+      resolve(canvas.toDataURL("image/jpeg", 0.78));
+    };
+    image.onerror = () => {
+      URL.revokeObjectURL(objectUrl);
+      reject(new Error("사진을 읽을 수 없습니다."));
+    };
+    image.src = objectUrl;
+  });
+}
+
+photoInput.addEventListener("change", async () => {
+  const selectedFiles = Array.from(photoInput.files || []);
+  photoInput.value = "";
+  if (selectedFiles.length === 0) return;
+
+  const availableSlots = 5 - thoughtPhotos.length;
+  if (availableSlots <= 0) {
+    photoError.textContent = "사진은 최대 5장까지 추가할 수 있어요.";
+    photoError.hidden = false;
+    return;
+  }
+
+  const filesToAdd = selectedFiles.slice(0, availableSlots);
+  if (selectedFiles.length > availableSlots) {
+    photoError.textContent = "사진은 최대 5장까지 추가할 수 있어요. 가능한 사진만 추가합니다.";
+    photoError.hidden = false;
+  } else {
+    photoError.hidden = true;
+  }
+
+  photoInput.disabled = true;
+  logButton.disabled = true;
+  try {
+    for (const file of filesToAdd) {
+      if (!file.type.startsWith("image/")) continue;
+      thoughtPhotos.push(await compressPhoto(file));
+      renderThoughtPhotos();
+    }
+  } catch (error) {
+    photoError.textContent = "사진을 불러오지 못했어요. 다른 사진을 선택해주세요.";
+    photoError.hidden = false;
+  } finally {
+    photoInput.disabled = false;
+    logButton.disabled = false;
+    renderThoughtPhotos();
+  }
+});
+
 function setEditing(button, field, property) {
   field.disabled = false;
   button.textContent = property === "thoughts" && bucketList.completed !== true
@@ -51,7 +168,9 @@ if (bucketList) {
   titleField.value = bucketList.title || "";
   detailTextarea.value = bucketList.info || "";
   logTextarea.value = bucketList.thoughts || "";
+  thoughtPhotos = Array.isArray(bucketList.thoughtPhotos) ? bucketList.thoughtPhotos : [];
   logButton.textContent = bucketList.completed === true ? "소감 수정하기" : "소감 작성하기";
+  renderThoughtPhotos();
 
   if (bucketList.completed === true) {
     const achievementDate = document.getElementById("achievementDate");
@@ -83,6 +202,7 @@ function completeBucketList() {
   bucketList.title = titleField.value.trim();
   bucketList.info = detailTextarea.value.trim();
   bucketList.thoughts = logTextarea.value.trim();
+  bucketList.thoughtPhotos = [...thoughtPhotos];
   bucketList.completed = true;
   bucketList.completedAt = bucketList.completedAt || getLocalDateString();
   bucketLists[index] = bucketList;
@@ -98,6 +218,7 @@ function connectEditSave(button, field, property, error, onSaved = null) {
   button.addEventListener("click", () => {
     if (field.disabled) {
       setEditing(button, field, property);
+      if (property === "thoughts") renderThoughtPhotos();
       return;
     }
 
@@ -113,10 +234,12 @@ function connectEditSave(button, field, property, error, onSaved = null) {
     }
 
     bucketList[property] = field.value.trim();
+    if (property === "thoughts") bucketList.thoughtPhotos = [...thoughtPhotos];
     bucketLists[index] = bucketList;
     localStorage.setItem("bucketLists", JSON.stringify(bucketLists));
 
     field.disabled = true;
+    if (property === "thoughts") renderThoughtPhotos();
     error.hidden = true;
     field.classList.remove("input-error");
     field.setAttribute("aria-invalid", "false");
