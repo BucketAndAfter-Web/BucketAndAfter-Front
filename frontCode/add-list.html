@@ -18,15 +18,16 @@
 
     <main>
       <h1 class="add-list-title">새 버킷리스트</h1>
-      <form id="bucketForm">
+      <form id="bucketForm" novalidate>
         <div class="contents">
           <div class="content">
             <h2>제목</h2>
-            <textarea
+            <input
+              type="text"
               id="listTitle"
               placeholder="예: 부산 여행 가기"
               required
-            ></textarea>
+            />
           </div>
           <div class="content">
             <h2>세부 사항</h2>
@@ -36,6 +37,7 @@
               required
             ></textarea>
           </div>
+          <p id="formError" class="form-error" role="alert" hidden>텍스트 필드를 전부 채워주세요.</p>
           <div class="form-actions">
             <button type="submit" id="addButton" class="button">추가</button>
             <button
@@ -52,22 +54,46 @@
     </main>
 
     <script>
-      document
-        .getElementById("bucketForm")
-        .addEventListener("submit", function (event) {
-          event.preventDefault(); //폼 제출 이후 바로 화면전환 안되게 설정.
+      const bucketForm = document.getElementById("bucketForm");
+      const titleField = document.getElementById("listTitle");
+      const infoField = document.getElementById("listInfo");
+      const formError = document.getElementById("formError");
+      const textFields = [titleField, infoField];
 
-          const bucketLists = JSON.parse(
-            localStorage.getItem("bucketLists") || "[]",
-          ); //원래 스토리지 데이터 가져오기
-          bucketLists.push({
-            title: document.getElementById("listTitle").value.trim(), //제목 입력창의 텍스트 가져와서 title에 저장
-            info: document.getElementById("listInfo").value.trim(), //위에랑 같은 기능인데 이제 세부사항으로
-          }); //title, info 읽어온 값들을 버킷리스트에 -마지막 요소로 push
-          bucketLists.className = "bucketLists"; //버킷리스트에 클래스 이름 설정
-          localStorage.setItem("bucketLists", JSON.stringify(bucketLists)); //push 된 버킷 리스트 데이터를 로컬 스토리지에 저장
-          window.location.href = "main.html"; //메인으로 화면 이동
+      function refreshFieldErrors() {
+        const allFieldsFilled = textFields.every((field) => field.value.trim() !== "");
+        formError.hidden = allFieldsFilled;
+
+        textFields.forEach((field) => {
+          const isInvalid = field.value.trim() === "" && !allFieldsFilled;
+          field.classList.toggle("input-error", isInvalid);
+          field.setAttribute("aria-invalid", String(isInvalid));
         });
+      }
+
+      textFields.forEach((field) => field.addEventListener("input", refreshFieldErrors));
+
+      bucketForm.addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        refreshFieldErrors();
+
+        const firstEmptyField = textFields.find((field) => field.value.trim() === "");
+        if (firstEmptyField) {
+          firstEmptyField.focus();
+          return;
+        }
+
+        const bucketLists = JSON.parse(
+          localStorage.getItem("bucketLists") || "[]",
+        ); //원래 스토리지 데이터 가져오기
+        bucketLists.push({
+          title: titleField.value.trim(),
+          info: infoField.value.trim(),
+        });
+        localStorage.setItem("bucketLists", JSON.stringify(bucketLists));
+        window.location.href = "main.html";
+      });
     </script>
   </body>
 </html>

@@ -13,6 +13,7 @@ const bucketLists = JSON.parse(localStorage.getItem("bucketLists") || "[]");
 const bucketList = indexText === null ? null : bucketLists[index];
 
 const completeBtn = document.getElementById("completeButton");
+const deleteBtn = document.getElementById("deleteButton");
 
 function formatAchievementDate(value) {
   if (!value) return "미기록";
@@ -79,5 +80,15 @@ completeBtn.addEventListener("click", () => {
   bucketLists[index] = bucketList;
   localStorage.setItem("bucketLists", JSON.stringify(bucketLists));
 
+  window.location.href = "main.html";
+});
+
+deleteBtn.addEventListener("click", () => {
+  if (!bucketList) return;
+  const confirmed = window.confirm("이 버킷리스트를 삭제할까요? 삭제한 항목은 복구할 수 없습니다.");
+  if (!confirmed) return;
+
+  bucketLists.splice(index, 1);
+  localStorage.setItem("bucketLists", JSON.stringify(bucketLists));
   window.location.href = "main.html";
 });

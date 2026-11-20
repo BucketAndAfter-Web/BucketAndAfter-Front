@@ -7,7 +7,14 @@
 #bucketForm .content::before { position: absolute; top: 0; left: 0; display: grid; place-items: center; width: 36px; height: 36px; border: 1px solid var(--main-300); border-radius: 50%; color: var(--main-800); background: var(--main-100); content: counter(form-step, decimal-leading-zero); font-size: 10px; font-weight: 800; }
 #bucketForm .content + .content::before { top: 24px; }
 #bucketForm .content h2 { margin: 3px 0 12px; color: var(--main-800); font-size: 16px; }
+#bucketForm .form-error { margin: 0 0 18px 54px; color: #b42318; font-size: 13px; font-weight: 700; }
+#bucketForm .form-error[hidden] { display: none; }
+#bucketForm input[type="text"] { display: block; width: 100%; padding: 14px 16px; border: 1px solid var(--line); border-radius: var(--radius); color: var(--ink); background: #fff; font: inherit; }
+#bucketForm input[type="text"]::placeholder { color: var(--placeholder); }
+#bucketForm input[type="text"]:focus { outline: 3px solid var(--main-100); border-color: var(--main-600); }
 #bucketForm textarea { display: block; min-height: 96px; }
+#bucketForm input[type="text"].input-error, #bucketForm textarea.input-error { border-color: #b42318; }
+#bucketForm input[type="text"].input-error:focus, #bucketForm textarea.input-error:focus { outline: 3px solid #fce8e6; border-color: #b42318; }
 #bucketForm .form-actions { display: flex; justify-content: flex-end; gap: 10px; padding-top: 4px; }
 #bucketForm .button { min-width: 92px; padding: 10px 18px; border: 1px solid var(--main-800); border-radius: 999px; font-size: 14px; font-weight: 700; cursor: pointer; transition: background .16s ease, color .16s ease; }
 #addButton { color: #fff; background: var(--main-800); }
@@ -18,4 +25,5 @@
   #bucketForm { padding: 18px; border-radius: 14px; }
   #bucketForm .content { padding-left: 46px; }
   #bucketForm .content::before { width: 32px; height: 32px; }
+  #bucketForm .form-error { margin-left: 46px; }
 }
