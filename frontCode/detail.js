@@ -11,8 +11,7 @@ const indexText = params.get("index");
 const index = Number(indexText);
 const bucketLists = JSON.parse(localStorage.getItem("bucketLists") || "[]");
 const bucketList = indexText === null ? null : bucketLists[index];
-
-const completeBtn = document.getElementById("completeButton");
+const detailTitle = document.getElementById("detailTitle");
 const deleteBtn = document.getElementById("deleteButton");
 
 function formatAchievementDate(value) {
@@ -29,13 +28,6 @@ function getLocalDateString() {
   return `${year}-${month}-${day}`;
 }
 
-function setEditing(button, field) {
-  field.disabled = false;
-  button.textContent = "저장";
-  button.classList.replace("sec-btn", "pri-btn");
-  field.focus();
-}
-
 function validateField(field, error) {
   const isValid = field.value.trim() !== "";
   error.hidden = isValid;
@@ -44,12 +36,22 @@ function validateField(field, error) {
   return isValid;
 }
 
+function setEditing(button, field, property) {
+  field.disabled = false;
+  button.textContent = property === "thoughts" && bucketList.completed !== true
+    ? "달성 완료 및 저장"
+    : "저장";
+  button.classList.replace("sec-btn", "pri-btn");
+  field.focus();
+}
+
 if (bucketList) {
   document.title = bucketList.title || "버킷리스트 상세";
   detailTitle.textContent = bucketList.title || "제목 없음";
   titleField.value = bucketList.title || "";
   detailTextarea.value = bucketList.info || "";
   logTextarea.value = bucketList.thoughts || "";
+  logButton.textContent = bucketList.completed === true ? "소감 수정하기" : "소감 작성하기";
 
   if (bucketList.completed === true) {
     const achievementDate = document.getElementById("achievementDate");
@@ -60,6 +62,34 @@ if (bucketList) {
   }
 }
 
+function completeBucketList() {
+  if (!bucketList) return;
+
+  const fields = [
+    { button: titleButton, field: titleField, property: "title", error: document.getElementById("titleError") },
+    { button: detailButton, field: detailTextarea, property: "info", error: document.getElementById("detailError") },
+    { button: logButton, field: logTextarea, property: "thoughts", error: document.getElementById("logError") },
+  ];
+  const invalidFields = fields.filter(({ field, error }) => !validateField(field, error));
+
+  if (invalidFields.length > 0) {
+    invalidFields.forEach(({ button, field, property }) => {
+      if (field.disabled) setEditing(button, field, property);
+    });
+    invalidFields[0].field.focus();
+    return;
+  }
+
+  bucketList.title = titleField.value.trim();
+  bucketList.info = detailTextarea.value.trim();
+  bucketList.thoughts = logTextarea.value.trim();
+  bucketList.completed = true;
+  bucketList.completedAt = bucketList.completedAt || getLocalDateString();
+  bucketLists[index] = bucketList;
+  localStorage.setItem("bucketLists", JSON.stringify(bucketLists));
+  window.location.href = "main.html";
+}
+
 function connectEditSave(button, field, property, error, onSaved = null) {
   field.addEventListener("input", () => {
     if (!error.hidden) validateField(field, error);
@@ -67,7 +97,7 @@ function connectEditSave(button, field, property, error, onSaved = null) {
 
   button.addEventListener("click", () => {
     if (field.disabled) {
-      setEditing(button, field);
+      setEditing(button, field, property);
       return;
     }
 
@@ -77,6 +107,11 @@ function connectEditSave(button, field, property, error, onSaved = null) {
     }
     if (!bucketList) return;
 
+    if (property === "thoughts" && bucketList.completed !== true) {
+      completeBucketList();
+      return;
+    }
+
     bucketList[property] = field.value.trim();
     bucketLists[index] = bucketList;
     localStorage.setItem("bucketLists", JSON.stringify(bucketLists));
@@ -85,7 +120,7 @@ function connectEditSave(button, field, property, error, onSaved = null) {
     error.hidden = true;
     field.classList.remove("input-error");
     field.setAttribute("aria-invalid", "false");
-    button.textContent = "수정하기";
+    button.textContent = property === "thoughts" ? "소감 수정하기" : "수정하기";
     button.classList.replace("pri-btn", "sec-btn");
     if (onSaved) onSaved(field.value.trim());
   });
@@ -103,35 +138,6 @@ connectEditSave(
 );
 connectEditSave(detailButton, detailTextarea, "info", document.getElementById("detailError"));
 connectEditSave(logButton, logTextarea, "thoughts", document.getElementById("logError"));
-
-completeBtn.addEventListener("click", () => {
-  if (!bucketList) return;
-
-  const fields = [
-    { button: titleButton, field: titleField, error: document.getElementById("titleError") },
-    { button: detailButton, field: detailTextarea, error: document.getElementById("detailError") },
-    { button: logButton, field: logTextarea, error: document.getElementById("logError") },
-  ];
-  const invalidFields = fields.filter(({ field, error }) => !validateField(field, error));
-
-  if (invalidFields.length > 0) {
-    invalidFields.forEach(({ button, field }) => {
-      if (field.disabled) setEditing(button, field);
-    });
-    invalidFields[0].field.focus();
-    return;
-  }
-
-  bucketList.title = titleField.value.trim();
-  bucketList.info = detailTextarea.value.trim();
-  bucketList.thoughts = logTextarea.value.trim();
-  bucketList.completed = true;
-  bucketList.completedAt = bucketList.completedAt || getLocalDateString();
-
-  bucketLists[index] = bucketList;
-  localStorage.setItem("bucketLists", JSON.stringify(bucketLists));
-  window.location.href = "main.html";
-});
 
 deleteBtn.addEventListener("click", () => {
   if (!bucketList) return;
